@@ -30,7 +30,7 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -810,7 +810,7 @@ public class ShopifySdkTest {
 		final ShopifyOrder actualShopifyOrder = shopifySdk.closeOrder(someOrderId);
 
 		assertEquals(
-				"{\"number\":0,\"total_weight\":0,\"taxes_included\":false,\"buyer_accepts_marketing\":false,\"line_items\":[],\"fulfillments\":[],\"billing_address\":{},\"shipping_address\":{},\"customer\":{\"accepts_marketing\":false,\"orders_count\":0,\"tags\":null},\"shipping_lines\":[],\"tax_lines\":[],\"note_attributes\":[],\"refunds\":[],\"metafields\":[]}",
+				"{\"number\":0,\"fulfillments\":[],\"customer\":{\"accepts_marketing\":false,\"orders_count\":0,\"tags\":null},\"refunds\":[],\"metafields\":[],\"total_weight\":0,\"taxes_included\":false,\"buyer_accepts_marketing\":false,\"line_items\":[],\"billing_address\":{},\"shipping_address\":{},\"shipping_lines\":[],\"tax_lines\":[],\"note_attributes\":[]}",
 				actualRequestBody.getContent());
 		assertNotNull(actualShopifyOrder);
 		assertEquals(someOrderId, actualShopifyOrder.getId());
@@ -1989,7 +1989,7 @@ public class ShopifySdkTest {
 
 		final ShopifyVariant actualShopifyVariant = shopifySdk.updateVariant(shopifyVariantUpdateRequest);
 
-		final String expectedRequestBodyString = "{\"variant\":{\"id\":\"98746868985974\",\"title\":\"UK 8\",\"price\":10.00,\"barcode\":\"459876235897\",\"position\":0,\"grams\":0,\"requires_shipping\":false,\"taxable\":false}}";
+		final String expectedRequestBodyString = "{\"variant\":{\"id\":\"98746868985974\",\"title\":\"UK 8\",\"price\":10.00,\"barcode\":\"459876235897\",\"position\":0,\"grams\":0,\"taxable\":false,\"requires_shipping\":false}}";
 		assertEquals(expectedRequestBodyString, stringBodyCapture.getContent());
 
 		assertEquals(shopifyVariantUpdateRequest.getRequest().getId(), actualShopifyVariant.getId());
